@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfólio - Filtro Dinâmico</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f5f5f5; margin: 0; padding: 20px; }
+    .filtros { margin-bottom: 20px; }
+    .filtros button { margin-right: 10px; padding: 8px 16px; border: none; background: #007bff; color: #fff; border-radius: 4px; cursor: pointer; }
+    .filtros button.active { background: #0056b3; }
+    .portfolio { display: flex; flex-wrap: wrap; gap: 20px; }
+    .card { background: #fff; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); padding: 20px; width: 220px; }
+    .card h3 { margin-top: 0; }
+    .card[data-hidden="true"] { display: none; }
+  </style>
+</head>
+<body>
+  <div class="filtros">
+    <button data-filter="Todos" class="active">Todos</button>
+    <button data-filter="Web">Web</button>
+    <button data-filter="Mobile">Mobile</button>
+    <button data-filter="Design">Design</button>
+  </div>
+  <div class="portfolio">
+    <div class="card" data-category="Web">
+      <h3>Site Institucional</h3>
+      <p>Projeto de site para empresa.</p>
+    </div>
+    <div class="card" data-category="Mobile">
+      <h3>App Delivery</h3>
+      <p>Aplicativo para pedidos de comida.</p>
+    </div>
+    <div class="card" data-category="Design">
+      <h3>Logo Marca</h3>
+      <p>Criação de identidade visual.</p>
+    </div>
+    <div class="card" data-category="Web">
+      <h3>Landing Page</h3>
+      <p>Página de captura para campanhas.</p>
+    </div>
+    <div class="card" data-category="Mobile">
+      <h3>App Fitness</h3>
+      <p>Aplicativo para treinos.</p>
+    </div>
+  </div>
+  <script>
+    const botoes = document.querySelectorAll('.filtros button');
+    const cards = document.querySelectorAll('.card');
+    botoes.forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelector('.filtros .active').classList.remove('active');
+        btn.classList.add('active');
+        const filtro = btn.getAttribute('data-filter');
+        cards.forEach(card => {
+          if (filtro === 'Todos' || card.getAttribute('data-category') === filtro) {
+            card.setAttribute('data-hidden', 'false');
+          } else {
+            card.setAttribute('data-hidden', 'true');
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>
